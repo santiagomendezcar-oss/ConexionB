@@ -17,7 +17,6 @@ public class MascotaServiceImpl implements MascotaService {
 
     private final MascotaRepository mascotaRepository;
 
-    // Conversión de DTO a Entidad
     private Mascota convertToEntity(MascotaRequestDTO dto) {
         Mascota mascota = new Mascota();
         mascota.setNombre(dto.getNombre());
@@ -29,7 +28,6 @@ public class MascotaServiceImpl implements MascotaService {
         return mascota;
     }
 
-    // Conversión de Entidad a DTO
     private MascotaResponseDTO convertToDTO(Mascota mascota) {
         return MascotaResponseDTO.builder()
                 .id(mascota.getId())
@@ -45,7 +43,6 @@ public class MascotaServiceImpl implements MascotaService {
     @Override
     @Transactional
     public MascotaResponseDTO crearMascota(MascotaRequestDTO dto) {
-        // Validación: edad no puede ser negativa
         if (dto.getEdad() != null && dto.getEdad() < 0) {
             throw new RuntimeException("La edad no puede ser negativa");
         }
@@ -87,7 +84,6 @@ public class MascotaServiceImpl implements MascotaService {
         Mascota mascota = mascotaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Mascota no encontrada con id: " + id));
 
-        // Validación: edad no puede ser negativa
         if (dto.getEdad() != null && dto.getEdad() < 0) {
             throw new RuntimeException("La edad no puede ser negativa");
         }
